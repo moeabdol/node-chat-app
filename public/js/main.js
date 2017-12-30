@@ -3,11 +3,6 @@ $(document).ready(function() {
 
   socket.on('connect', function() {
     console.log('Connected to server');
-
-    socket.emit('createMessage', {
-      from: 'moeabdol',
-      text: 'Yup! That works for me.'
-    });
   });
 
   socket.on('disconnect', function() {
