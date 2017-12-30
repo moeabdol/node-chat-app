@@ -9,6 +9,7 @@ const server = http.createServer(app);
 const io     = socketIO(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 io.on('connection', (socket) => {
   console.log('Client connected');
