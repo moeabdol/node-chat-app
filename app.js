@@ -14,6 +14,16 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 io.on('connection', (socket) => {
   console.log('Client connected');
 
+  socket.emit('newMessage', {
+    from: 'moe@example.com',
+    text: 'Hey, What\'s going on.',
+    createdAt: Date.now()
+  });
+
+  socket.on('createMessage', message => {
+    console.log('createMessage', message);
+  });
+
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
