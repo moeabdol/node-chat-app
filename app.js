@@ -1,12 +1,24 @@
-const express = require('express');
-const path    = require('path');
+const path     = require('path');
+const express  = require('express');
+const http     = require('http');
+const socketIO = require('socket.io');
 
-const app = express();
-const PORT = 3000;
+const PORT   = 3000;
+const app    = express();
+const server = http.createServer(app);
+const io     = socketIO(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(PORT, err => {
+io.on('connection', (socket) => {
+  console.log('Client connected');
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
+server.listen(PORT, err => {
   if (err) return console.log(err);
   console.log(`Server listening on port ${PORT}`);
 });
