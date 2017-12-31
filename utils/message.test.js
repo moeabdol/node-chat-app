@@ -21,10 +21,10 @@ describe('generateLocationMessage', () => {
     const from = 'moe';
     const latitude = 1;
     const longitude = 2;
+    const url = 'https://www.google.com/maps?q=1,2';
     const message = generateLocationMessage(from, latitude, longitude);
 
-    expect(message).to.include({ from });
+    expect(message).to.include({ from, url });
     expect(message.createdAt).to.be.a('number');
-    expect(message.url).to.equal('https://www.google.com/maps?q=1,2');
   });
 });
