@@ -48,6 +48,7 @@
     "document": true,
     "window": true,
     "io": true,
-    "moment": true
+    "moment": true,
+    "Handlebars": true
   }
 }

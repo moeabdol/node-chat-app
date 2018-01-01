@@ -11,20 +11,28 @@ $(document).ready(function() {
 
   socket.on('newMessage', function(message) {
     var formattedTime = moment(message.createdAt).format('h:mm a');
-    var li = $('<li></li>');
-    li.text(`${message.from} ${formattedTime}: ${message.text}`);
-    $('#messages').append(li);
+    var source = $('#message-template').html();
+    var template = Handlebars.compile(source);
+    var html = template({
+      from: message.from,
+      text: message.text,
+      createdAt: formattedTime
+    });
+
+    $('#messages').append(html);
   });
 
   socket.on('newLocationMessage', function(message) {
     var formattedTime = moment(message.createdAt).format('h:mm a');
-    var li = $('<li></li>');
-    var a = $('<a target="_blank">My current location</a>');
+    var source = $('#location-message-template').html();
+    var template = Handlebars.compile(source);
+    var html = template({
+      from: message.from,
+      url: message.url,
+      createdAt: formattedTime
+    });
 
-    li.text(`${message.from} ${formattedTime}: `);
-    a.attr('href', message.url);
-    li.append(a);
-    $('#messages').append(li);
+    $('#messages').append(html);
   });
 
   var messageTextBox = $('[name=message]');
